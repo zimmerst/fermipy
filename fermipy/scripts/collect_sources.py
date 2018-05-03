@@ -134,7 +134,7 @@ def main():
                                       roi_idx=idx)
 
     print('Collected', len(src_tab), 'sources')
-    src_tab.write(args.output, format='fits', overwrite=args.clobber)
+    src_tab.write(args.output, format='fits', clobber=args.clobber)
 
 
 if __name__ == "__main__":

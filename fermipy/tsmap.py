@@ -70,7 +70,7 @@ def extract_images_from_tscube(infile, outfile):
         outhdulist.append(hdu)
 
     hdulist = fits.HDUList(outhdulist)
-    hdulist.writeto(outfile, clobber=True)
+    hdulist.writeto(outfile, overwite=True)
     return hdulist
 
 
@@ -79,7 +79,7 @@ def convert_tscube(infile, outfile):
     inhdulist = fits.open(infile)
     if 'dloglike_scan' in inhdulist['SCANDATA'].columns.names:
         if infile != outfile:
-            inhdulist.writeto(outfile, clobber=True)
+            inhdulist.writeto(outfile, overwite=True)
         return
     elif 'E_MIN_FL' in inhdulist['EBOUNDS'].columns.names:
         return convert_tscube_old(infile, outfile)
@@ -97,7 +97,7 @@ def convert_tscube(infile, outfile):
                 colname = col.name.lower()
                 col.name = colname.replace('dfde', 'dnde')
 
-    inhdulist.writeto(outfile, clobber=True)
+    inhdulist.writeto(outfile, overwite=True)
     return inhdulist
 
 
@@ -108,7 +108,7 @@ def convert_tscube_old(infile, outfile):
     # If already in the new-style format just write and exit
     if 'DLOGLIKE_SCAN' in inhdulist['SCANDATA'].columns.names:
         if infile != outfile:
-            inhdulist.writeto(outfile, clobber=True)
+            inhdulist.writeto(outfile, overwite=True)
         return
 
     # Get stuff out of the input file
@@ -257,7 +257,7 @@ def convert_tscube_old(infile, outfile):
 
     hdulist['SCANDATA'].header['UL_CONF'] = 0.95
 
-    hdulist.writeto(outfile, clobber=True)
+    hdulist.writeto(outfile, overwite=True)
 
     return hdulist
 
